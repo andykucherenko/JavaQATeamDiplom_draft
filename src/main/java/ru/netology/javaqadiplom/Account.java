@@ -24,7 +24,8 @@ public class Account {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public int setRate(int rate) {
         this.rate = rate;
+        return 0;
     }
 }
