@@ -22,6 +22,13 @@ public class SavingAccountTest {
     }
 
     @Test
+    public void testConstructorNegativeBalance() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(-1000, 500, 1500, 5);
+        });
+    }
+
+    @Test
     public void testConstructorNegativeRate() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new SavingAccount(1000, 500, 1500, -5);
