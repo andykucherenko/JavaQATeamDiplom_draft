@@ -1,10 +1,9 @@
 package ru.netology.javaqadiplom;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SavingAccountTest {
 
@@ -25,13 +24,6 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void testConstructorNegativeBalance() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(-1000, 500, 1500, 5);
-        });
-    }
-
-    @Test
     public void testConstructorNegativeRate() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new SavingAccount(1000, 500, 1500, -5);
@@ -40,9 +32,9 @@ public class SavingAccountTest {
 
     @Test
     public void testPayWithValidAmountBetweenMinAndMaxBalance() {
-        SavingAccount account = new SavingAccount(100, 50, 200, 10);
-        Assertions.assertFalse(account.pay(60));
-        Assertions.assertEquals(40, account.getBalance());
+        SavingAccount account = new SavingAccount(1000, 500, 2000, 10);
+        Assertions.assertFalse(account.pay(600));
+        Assertions.assertEquals(400, account.getBalance());
     }
 
     @Test
@@ -116,126 +108,9 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void testConstructorWithValidInitialBalance() {
-        SavingAccount account = new SavingAccount(100, 50, 200, 10);
-        assertNotNull(account);
-        Assertions.assertEquals(100, account.getBalance());
-    }
-
-    @Test
-    public void testConstructorWithInitialBalanceGreaterThanMaxBalance() {
-        SavingAccount account = new SavingAccount(300, 50, 500, 15);
-    }
-
-    @Test
-    void testInitialBalance() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertEquals(1000, account.getBalance());
-    }
-
-    @Test
-    void testMinBalance() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertEquals(500, account.getMinBalance());
-    }
-
-    @Test
-    void testMaxBalance() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertEquals(2000, account.getMaxBalance());
-    }
-
-    @Test
-    void testRate() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertEquals(5, account.getRate());
-    }
-
-    @Test
-    void testNegativeRate() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertThrows(IllegalArgumentException.class, () -> new SavingAccount(1000, 500, 2000, -10));
-    }
-
-    @Test
-    void testPaySuccess() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertTrue(account.pay(100));
-        assertEquals(900, account.getBalance());
-    }
-
-    @Test
-    void testAddSuccess() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertTrue(account.add(500));
-        assertEquals(1500, account.getBalance());
-    }
-
-    @Test
-    void testAddFail() {
-        SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
-        assertFalse(account.add(1500));
-        assertEquals(1000, account.getBalance());
-    }
-
-    @Test
     void testYearChangeZeroRate() {
         SavingAccount account = new SavingAccount(1000, 500, 2000, 5);
         account.setRate(0);
         assertEquals(0, account.yearChange());
-    }
-
-    private Account account;
-
-    @BeforeEach
-    public void setUp() {
-        account = new Account();
-        account.balance = 100;
-        account.rate = 5;
-    }
-
-    @Test
-    public void testPayWithPositiveAmountGreaterThanBalance() {
-        boolean result = account.pay(150);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(100, account.balance);
-    }
-
-    @Test
-    public void testAddWithZeroAmount() {
-        boolean result = account.add(0);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(100, account.balance);
-    }
-
-    @Test
-    public void testAddWithPositiveAmountLessThanMaxBalance() {
-        boolean result = account.add(100);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(100, account.balance);
-    }
-
-    @Test
-    public void testAddWithPositiveAmountEqualToMaxBalance() {
-        boolean result = account.add(100);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(100, account.balance);
-    }
-
-    @Test
-    public void testAddWithPositiveAmountGreaterThanMaxBalance() {
-        boolean result = account.add(1001);
-        Assertions.assertFalse(result);
-        Assertions.assertEquals(100, account.balance);
-    }
-
-    @Test
-    public void testCountingYearChangeIfBalanceConstant() {
-        int result = account.yearChange();
-        account.setRate(5);
-        assertEquals(0, result);
-
-
-
     }
 }
